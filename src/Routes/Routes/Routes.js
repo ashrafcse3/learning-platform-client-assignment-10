@@ -10,6 +10,10 @@ export const routes = createBrowserRouter([
             {
                 path: '/',
                 element: <Courses></Courses>
+            },
+            {
+                path: '/course/:courseId',
+                element: <p>Hello</p>
             }
         ]
     }

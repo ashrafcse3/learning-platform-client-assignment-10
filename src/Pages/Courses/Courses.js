@@ -1,10 +1,29 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import CourseCard from '../CourseCard/CourseCard';
+import { Row } from 'react-bootstrap';
+
 
 const Courses = () => {
+    const [courses, setCourses] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:4000/courses-details')
+            .then(res => res.json())
+            .then(data => setCourses(data))
+    }, []);
     return (
         <div>
-            from course.js
-        </div>
+            <Row xs={1} md={2} className="g-4">
+                {
+                    courses.map(course => <CourseCard
+                        key={course.id}
+                        course={course}
+                    ></CourseCard>)
+                }
+            </Row>
+        </div >
     );
 };
 
