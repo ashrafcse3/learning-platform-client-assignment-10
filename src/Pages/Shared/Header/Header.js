@@ -61,12 +61,12 @@ const Header = () => {
                                         placement='bottom'
                                         overlay={
                                             <Tooltip id='bottom'>
-                                                {user?.displayName}
+                                                {user.displayName ? user?.displayName : 'null'}
                                             </Tooltip>
                                         }>
                                         <Button className="me-2" variant="outline-success">
                                             {
-                                                user ? <Image style={{ height: '30px' }} src={user?.photoURL}></Image> : <FaUserCircle />
+                                                user.photoURL !== null ? <Image style={{ height: '30px' }} src={user?.photoURL}></Image> : <FaUserCircle />
                                             }
                                         </Button>
                                     </OverlayTrigger>

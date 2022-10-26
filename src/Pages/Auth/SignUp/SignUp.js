@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Row, ListGroup, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import { useContext } from 'react';
@@ -8,7 +8,9 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 
 const SignUp = () => {
-    const { providerLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const { providerLogin, createUser, updateNameNPhoto } = useContext(AuthContext);
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -22,54 +24,83 @@ const SignUp = () => {
                 console.error(error);
             })
     }
+
+    const handleForm = event => {
+        event.preventDefault();
+        const form = event.target;
+        const fullName = form.fullName.value;
+        const email = form.email.value;
+        const photoURL = form.photoURL.value;
+        const password = form.password.value;
+        console.log(fullName, email, photoURL, password);
+
+        createUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                handleProfileUpdate(fullName, photoURL);
+                navigate('/');
+            })
+            .catch(error => console.error(error))
+    }
+
+    const handleProfileUpdate = (name, photo) => {
+        const updateInfo = {
+            displayName: name,
+            photoURL: photo
+        }
+        console.log(updateInfo);
+        updateNameNPhoto(updateInfo)
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
+
     return (
-        <div>
-            <Container>
-                <Row>
-                    <Col lg="9">
-                        <Form>
-                            <Form.Group className="mb-3" controlId="formFullName">
-                                <Form.Label>Full Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter full name" />
-                            </Form.Group>
+        <Container>
+            <Row>
+                <Col lg="9">
+                    <Form onSubmit={handleForm}>
+                        <Form.Group className="mb-3" controlId="formFullName">
+                            <Form.Label>Full Name</Form.Label>
+                            <Form.Control name="fullName" type="text" placeholder="Enter full name" />
+                        </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formPhotoURL">
-                                <Form.Label>Photo URL</Form.Label>
-                                <Form.Control type="text" placeholder="Enter photo URL" />
-                            </Form.Group>
+                        <Form.Group className="mb-3" controlId="formPhotoURL">
+                            <Form.Label>Photo URL</Form.Label>
+                            <Form.Control name="photoURL" type="text" placeholder="Enter photo URL" />
+                        </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
-                            </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control name="email" type="email" placeholder="Enter email" />
+                        </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                <Form.Text className="text-muted">
-                                    Have an account? Go to <Link to="/login" className='link-dark'>Login</Link>
-                                </Form.Text>
-                            </Form.Group>
-                            <Button variant="primary" type="submit">
-                                Sign up
-                            </Button>
-                        </Form>
-                    </Col>
-                    <Col lg="3">
-                        <ListGroup>
-                            <ListGroup.Item action onClick={handleGoogleSignIn}>
-                                <FcGoogle /> Login with google
-                            </ListGroup.Item>
-                            <ListGroup.Item action href="#link2">
-                                <FaGithub /> Login with github
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control name="password" type="password" placeholder="Password" />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                            <Form.Text className="text-muted">
+                                Have an account? Go to <Link to="/login" className='link-dark'>Login</Link>
+                            </Form.Text>
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                            Sign up
+                        </Button>
+                    </Form>
+                </Col>
+                <Col lg="3">
+                    <ListGroup>
+                        <ListGroup.Item action onClick={handleGoogleSignIn}>
+                            <FcGoogle /> Login with google
+                        </ListGroup.Item>
+                        <ListGroup.Item action href="#link2">
+                            <FaGithub /> Login with github
+                        </ListGroup.Item>
+                    </ListGroup>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 
