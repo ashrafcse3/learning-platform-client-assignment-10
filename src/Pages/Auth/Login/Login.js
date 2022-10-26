@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Row, ListGroup, Form, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 import { useContext } from 'react';
@@ -9,8 +9,10 @@ import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
     const navigate = useNavigate();
-
+    const location = useLocation();
     const { providerLogin, logIn } = useContext(AuthContext);
+
+    const from = location.state?.from?.pathname || "/";
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -36,7 +38,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                navigate('/');
+                navigate(from, { replace: true });
             })
             .catch(error => console.error(error))
     }
