@@ -1,5 +1,8 @@
 import React from 'react';
 import { Col, Container, Row, ListGroup, Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
 
 const SignUp = () => {
     return (
@@ -8,12 +11,19 @@ const SignUp = () => {
                 <Row>
                     <Col lg="9">
                         <Form>
+                            <Form.Group className="mb-3" controlId="formFullName">
+                                <Form.Label>Full Name</Form.Label>
+                                <Form.Control type="text" placeholder="Enter full name" />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="formPhotoURL">
+                                <Form.Label>Photo URL</Form.Label>
+                                <Form.Control type="text" placeholder="Enter photo URL" />
+                            </Form.Group>
+
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control type="email" placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                    We'll never share your email with anyone else.
-                                </Form.Text>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -21,23 +31,22 @@ const SignUp = () => {
                                 <Form.Control type="password" placeholder="Password" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Check me out" />
+                                <Form.Text className="text-muted">
+                                    Have an account? Go to <Link to="/login" className='link-dark'>Login</Link>
+                                </Form.Text>
                             </Form.Group>
                             <Button variant="primary" type="submit">
-                                Submit
+                                Sign up
                             </Button>
                         </Form>
                     </Col>
                     <Col lg="3">
-                        <ListGroup defaultActiveKey="#link1">
-                            <ListGroup.Item action href="#link1">
-                                Link 1
+                        <ListGroup>
+                            <ListGroup.Item action >
+                                <FcGoogle /> Login with google
                             </ListGroup.Item>
                             <ListGroup.Item action href="#link2">
-                                Link 2
-                            </ListGroup.Item>
-                            <ListGroup.Item action>
-                                This one is a button
+                                <FaGithub /> Login with github
                             </ListGroup.Item>
                         </ListGroup>
                     </Col>
