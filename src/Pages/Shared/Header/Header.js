@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
@@ -8,7 +9,7 @@ const Header = () => {
                 <Container>
                     <Navbar bg="light" variant="light">
                         <Container>
-                            <Navbar.Brand href="#home">
+                            <Link to='/' className='navbar-brand'>
                                 <img
                                     alt=""
                                     src="https://cdn-icons-png.flaticon.com/512/760/760921.png"
@@ -17,15 +18,15 @@ const Header = () => {
                                     className="d-inline-block align-top"
                                 />{' '}
                                 English Gugu
-                            </Navbar.Brand>
+                            </Link>
                         </Container>
                     </Navbar>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="#link">Courses</Nav.Link>
-                            <Nav.Link href="#link">FAQ</Nav.Link>
-                            <Nav.Link href="#link">Blog</Nav.Link>
+                            <Link to='/' className='nav-link'>Courses</Link>
+                            <Link to='/faq' className='nav-link'>FAQ</Link>
+                            <Link to='/blog' className='nav-link'>Blog</Link>
                         </Nav>
                         <Nav className="d-flex">
                             {/* Choosing theme start */}
@@ -34,9 +35,9 @@ const Header = () => {
                                 <NavDropdown.Item href="#action/3.1">Dark</NavDropdown.Item>
                             </NavDropdown>
                             {/* Choosing theme end */}
-                            <Button className="me-2" variant="outline-success">Login</Button>
-                            <Button className="me-2" variant="outline-success">Sign up</Button>
-                            <Button className="me-2" variant="outline-success">User</Button>
+                            <Button className="me-2" variant="outline-success"><Link to='/login' className='nav-link'>Login</Link></Button>
+                            <Button className="me-2" variant="outline-success"><Link to='/signup' className='nav-link'>Sign up</Link></Button>
+                            <Button className="me-2" variant="outline-success"><Link to='/' className='nav-link'>User</Link></Button>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
