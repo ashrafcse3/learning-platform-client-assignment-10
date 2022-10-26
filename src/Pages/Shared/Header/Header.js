@@ -1,9 +1,10 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Navbar, Nav, Container, NavDropdown, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown, Button, OverlayTrigger, Tooltip, Image } from 'react-bootstrap';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import './Header.css';
 
 const Header = () => {
     const { user } = useContext(AuthContext);
@@ -47,10 +48,13 @@ const Header = () => {
                                 placement='bottom'
                                 overlay={
                                     <Tooltip id='bottom'>
-                                        <strong>{user?.displayName}</strong>.
+                                        <strong>{user?.displayName}</strong>
                                     </Tooltip>
                                 }>
-                                <Button className="me-2" variant="outline-success"><FaUserCircle />
+                                <Button className="me-2" variant="outline-success">
+                                    {
+                                        user ? <Image className='img-thumbnail' src={user.photoURL}></Image> : <FaUserCircle />
+                                    }
                                 </Button>
                             </OverlayTrigger>
                         </Nav>

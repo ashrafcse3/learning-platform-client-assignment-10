@@ -3,8 +3,25 @@ import { Col, Container, Row, ListGroup, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
+import { useContext } from 'react';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const SignUp = () => {
+    const { providerLogin } = useContext(AuthContext);
+
+    const googleProvider = new GoogleAuthProvider();
+
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
     return (
         <div>
             <Container>
@@ -42,7 +59,7 @@ const SignUp = () => {
                     </Col>
                     <Col lg="3">
                         <ListGroup>
-                            <ListGroup.Item action >
+                            <ListGroup.Item action onClick={handleGoogleSignIn}>
                                 <FcGoogle /> Login with google
                             </ListGroup.Item>
                             <ListGroup.Item action href="#link2">
