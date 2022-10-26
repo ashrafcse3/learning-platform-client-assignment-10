@@ -19,12 +19,12 @@ export const routes = createBrowserRouter([
             {
                 path: '/course/:courseId',
                 element: <CourseDetails></CourseDetails>,
-                loader: ({ params }) => fetch(`http://localhost:4000/course/${params.courseId}`)
+                loader: ({ params }) => fetch(`https://b610-lerning-platform-server-side-ashrafcse3-ashrafcse3.vercel.app/course/${params.courseId}`)
             },
             {
                 path: '/checkout/:id',
                 element: <PrivateRoute><Checkout></Checkout></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:4000/course/${params.id}`)
+                loader: ({ params }) => fetch(`https://b610-lerning-platform-server-side-ashrafcse3-ashrafcse3.vercel.app/course/${params.id}`)
             },
             {
                 path: '/login',

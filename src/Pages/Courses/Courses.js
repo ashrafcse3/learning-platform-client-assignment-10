@@ -9,7 +9,7 @@ const Courses = () => {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:4000/courses-details')
+        fetch('https://b610-lerning-platform-server-side-ashrafcse3-ashrafcse3.vercel.app/courses-details')
             .then(res => res.json())
             .then(data => setCourses(data))
     }, []);

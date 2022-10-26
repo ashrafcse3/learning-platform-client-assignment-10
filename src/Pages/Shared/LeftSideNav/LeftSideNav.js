@@ -7,7 +7,7 @@ const LeftSideNav = () => {
     const [titles, setTitles] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:4000/courses-title')
+        fetch('https://b610-lerning-platform-server-side-ashrafcse3-ashrafcse3.vercel.app/courses-title')
             .then(res => res.json())
             .then(data => setTitles(data))
     }, [])
