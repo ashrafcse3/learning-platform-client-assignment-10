@@ -53,7 +53,7 @@ const Header = () => {
                                 }>
                                 <Button className="me-2" variant="outline-success">
                                     {
-                                        user ? <Image className='img-thumbnail' src={user.photoURL}></Image> : <FaUserCircle />
+                                        user ? <Image style={{ height: '30px' }} src={user.photoURL}></Image> : <FaUserCircle />
                                     }
                                 </Button>
                             </OverlayTrigger>
