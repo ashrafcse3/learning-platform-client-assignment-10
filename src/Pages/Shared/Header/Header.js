@@ -1,8 +1,13 @@
 import React from 'react';
-import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
+import { useContext } from 'react';
+import { Navbar, Nav, Container, NavDropdown, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Header = () => {
+    const { user } = useContext(AuthContext);
+
     return (
         <div>
             <Navbar bg="light" expand="lg">
@@ -37,7 +42,17 @@ const Header = () => {
                             {/* Choosing theme end */}
                             <Button className="me-2" variant="outline-success"><Link to='/login' className='nav-link'>Login</Link></Button>
                             <Button className="me-2" variant="outline-success"><Link to='/signup' className='nav-link'>Sign up</Link></Button>
-                            <Button className="me-2" variant="outline-success"><Link to='/' className='nav-link'>User</Link></Button>
+                            <OverlayTrigger
+                                key='bottom'
+                                placement='bottom'
+                                overlay={
+                                    <Tooltip id='bottom'>
+                                        <strong>{user?.displayName}</strong>.
+                                    </Tooltip>
+                                }>
+                                <Button className="me-2" variant="outline-success"><FaUserCircle />
+                                </Button>
+                            </OverlayTrigger>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
