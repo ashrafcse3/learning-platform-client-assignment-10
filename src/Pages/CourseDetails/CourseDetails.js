@@ -12,7 +12,7 @@ const CourseDetails = () => {
                 <Card.Img className='card-image' src={data.img} alt="Card image" />
                 <Card.Body>
                     <div className='d-flex justify-content-between'>
-                        <h1>{data.title}</h1>
+                        <h1>{data.title} Course</h1>
                         <Button variant="secondary">Download as pdf</Button>
                     </div>
                     <Card.Text>{data.description}</Card.Text>
