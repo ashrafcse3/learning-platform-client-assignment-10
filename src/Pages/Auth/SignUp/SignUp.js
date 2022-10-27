@@ -6,8 +6,11 @@ import { FaGithub } from 'react-icons/fa';
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import { useState } from 'react';
 
 const SignUp = () => {
+    const [error, setError] = useState('');
+
     const navigate = useNavigate();
 
     const { providerLogin, createUser, updateNameNPhoto } = useContext(AuthContext);
@@ -21,7 +24,8 @@ const SignUp = () => {
                 console.log(user);
             })
             .catch(error => {
-                console.error(error);
+                // console.error(error);
+                setError(error.message);
             })
     }
 
@@ -41,7 +45,10 @@ const SignUp = () => {
                 handleProfileUpdate(fullName, photoURL);
                 navigate('/');
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                // console.error(error);
+                setError(error.message);
+            })
     }
 
     const handleProfileUpdate = (name, photo) => {
@@ -62,28 +69,33 @@ const SignUp = () => {
                     <Form onSubmit={handleForm}>
                         <Form.Group className="mb-3" controlId="formFullName">
                             <Form.Label>Full Name</Form.Label>
-                            <Form.Control name="fullName" type="text" placeholder="Enter full name" />
+                            <Form.Control name="fullName" type="text" placeholder="Enter full name" required />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formPhotoURL">
                             <Form.Label>Photo URL</Form.Label>
-                            <Form.Control name="photoURL" type="text" placeholder="Enter photo URL" />
+                            <Form.Control name="photoURL" type="text" placeholder="Enter photo URL" required />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control name="email" type="email" placeholder="Enter email" />
+                            <Form.Control name="email" type="email" placeholder="Enter email" required />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control name="password" type="password" placeholder="Password" />
+                            <Form.Control name="password" type="password" placeholder="Password" required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                             <Form.Text className="text-muted">
                                 Have an account? Go to <Link to="/login" className='link-dark'>Login</Link>
                             </Form.Text>
                         </Form.Group>
+                        <div className='mb-3'>
+                            <Form.Text className="text-danger">
+                                {error}
+                            </Form.Text>
+                        </div>
                         <Button variant="primary" type="submit">
                             Sign up
                         </Button>

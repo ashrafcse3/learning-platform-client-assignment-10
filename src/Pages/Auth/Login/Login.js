@@ -6,8 +6,10 @@ import { FaGithub } from 'react-icons/fa';
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import { useState } from 'react';
 
 const Login = () => {
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const { providerLogin, logIn } = useContext(AuthContext);
@@ -23,7 +25,8 @@ const Login = () => {
                 console.log(user);
             })
             .catch(error => {
-                console.error(error);
+                // console.error(error);
+                setError(error.message);
             })
     }
 
@@ -40,7 +43,10 @@ const Login = () => {
                 console.log(user);
                 navigate(from, { replace: true });
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                // console.error(error.message);
+                setError(error.message);
+            })
     }
     return (
         <Container>
@@ -49,18 +55,23 @@ const Login = () => {
                     <Form onSubmit={handleForm}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control name="email" type="email" placeholder="Enter email" />
+                            <Form.Control name="email" type="email" placeholder="Enter email" required />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control name="password" type="password" placeholder="Password" />
+                            <Form.Control name="password" type="password" placeholder="Password" required />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicCheckbox">
                             <Form.Text className="text-muted">
                                 Do not have an account? <Link to="/signup" className='link-dark'>Sign Up</Link>
                             </Form.Text>
                         </Form.Group>
+                        <div className='mb-3'>
+                            <Form.Text className="text-danger">
+                                {error}
+                            </Form.Text>
+                        </div>
                         <Button variant="primary" type="submit">
                             Login
                         </Button>
